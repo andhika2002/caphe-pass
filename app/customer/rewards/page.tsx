@@ -1,12 +1,12 @@
 "use client"
 
-import { Navbar } from "@/components/navbar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Gift, Trophy, Zap, Coffee, Star, Crown, Award, Wifi, Calendar, Percent } from "lucide-react"
 import Link from "next/link"
+import { CustomerNavbar } from "@/components/customer-navbar"
 
 const userStats = {
   points: 2450,
@@ -120,7 +120,7 @@ export default function RewardsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <CustomerNavbar />
 
       {/* Hero Section */}
       <section className="border-b border-border/40 bg-gradient-to-br from-card to-accent/5">

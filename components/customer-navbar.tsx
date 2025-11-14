@@ -19,7 +19,7 @@ export function CustomerNavbar() {
             className="flex items-center gap-2 text-foreground hover:opacity-80 transition-opacity"
           >
             <Coffee className="h-6 w-6 text-accent" />
-            <span className="text-xl font-semibold">CaféHub</span>
+            <span className="text-xl font-semibold">CàPhêPass</span>
           </Link>
 
           {/* Desktop Navigation */}

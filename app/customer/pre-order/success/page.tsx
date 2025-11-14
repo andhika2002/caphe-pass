@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar"
+import { CustomerNavbar } from "@/components/customer-navbar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { CheckCircle, Clock, MapPin, QrCode } from "lucide-react"
@@ -7,7 +7,7 @@ import Link from "next/link"
 export default function PreOrderSuccessPage() {
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <CustomerNavbar />
 
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-2xl mx-auto text-center">

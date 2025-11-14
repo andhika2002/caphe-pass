@@ -7,7 +7,7 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "CaféHub - Book Your Perfect Café Experience",
+  title: "CàPhêPass - Book Your Perfect Café Experience",
   description: "Transform café culture in Vietnam. Book seats, pre-order drinks, and discover amazing cafés.",
   generator: "v0.app",
 }

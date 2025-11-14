@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar"
+import { CustomerNavbar } from "@/components/customer-navbar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { CheckCircle, Calendar, MapPin } from "lucide-react"
@@ -7,7 +7,7 @@ import Link from "next/link"
 export default function BookingSuccessPage() {
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <CustomerNavbar />
 
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-2xl mx-auto text-center">
@@ -16,7 +16,7 @@ export default function BookingSuccessPage() {
           <p className="text-lg text-muted-foreground mb-8">
             Your table has been reserved. We've sent a confirmation to your email.
           </p>
-
+    
           <Card className="p-6 bg-card border-border text-left mb-8">
             <h3 className="font-semibold text-card-foreground mb-4">Booking Details</h3>
             <div className="space-y-3">
