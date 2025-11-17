@@ -26,12 +26,7 @@ export default function CustomerHomePage() {
                   Discover Cafés
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/customer/booking">
-                  <Calendar className="mr-2 h-5 w-5" />
-                  Book a Table
-                </Link>
-              </Button>
+
             </div>
           </div>
         </div>
