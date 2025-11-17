@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Coffee, Menu, X, MapPin, Calendar, Gift, User, ShoppingBag } from "lucide-react"
+import { Coffee, Menu, X, MapPin, Calendar, Gift, User } from 'lucide-react'
 import { useState } from "react"
 import { ThemeToggle } from "@/components/theme-toggle"
 
@@ -38,13 +38,6 @@ export function CustomerNavbar() {
               <Calendar className="h-4 w-4" />
               Book Now
             </Link> */}
-            <Link
-              href="/customer/pre-order"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
-            >
-              <ShoppingBag className="h-4 w-4" />
-              Pre-Order
-            </Link>
             <Link
               href="/customer/rewards"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
@@ -105,14 +98,14 @@ export function CustomerNavbar() {
                 <Calendar className="h-4 w-4" />
                 Book Now
               </Link>
-              <Link
+              {/* <Link
                 href="/customer/pre-order"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <ShoppingBag className="h-4 w-4" />
                 Pre-Order
-              </Link>
+              </Link> */}
               <Link
                 href="/customer/rewards"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 py-2"
