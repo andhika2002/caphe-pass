@@ -1,3 +1,5 @@
+import { Calendar, Clock, Users, Coffee, Wifi, MapPin, Star, ChevronRight } from "lucide-react"
+
 export const CAFE_CONSTANTS = [
   {
     id: 1,
@@ -95,4 +97,46 @@ export const CAFE_CONSTANTS = [
     lat: 10.7742,
     lng: 106.7035,
   },
+]
+
+export const SEATTYPE_CONSTANTS = [
+  {
+    id: "solo",
+    name: "Solo Seat",
+    icon: Coffee,
+    description: "Perfect for focused work or quiet reading",
+    capacity: 1,
+    features: ["Power outlet", "Quiet zone", "Individual table"],
+  },
+  {
+    id: "group",
+    name: "Group Table",
+    icon: Users,
+    description: "Ideal for meetings or catching up with friends",
+    capacity: "2-6",
+    features: ["Spacious table", "Comfortable seating", "Group-friendly"],
+  },
+  {
+    id: "coworking",
+    name: "Co-working Corner",
+    icon: Wifi,
+    description: "Dedicated workspace with premium amenities",
+    capacity: "1-4",
+    features: ["High-speed Wi-Fi", "Power outlets", "Ergonomic chairs"],
+  },
+]
+
+export const TIMESLOT_CONSTANTS = [
+  "08:00 AM",
+  "09:00 AM",
+  "10:00 AM",
+  "11:00 AM",
+  "12:00 PM",
+  "01:00 PM",
+  "02:00 PM",
+  "03:00 PM",
+  "04:00 PM",
+  "05:00 PM",
+  "06:00 PM",
+  "07:00 PM",
 ]

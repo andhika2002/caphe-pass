@@ -1,10 +1,20 @@
+"use client"
 import { CustomerNavbar } from "@/components/customer-navbar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { CheckCircle, Calendar, MapPin } from "lucide-react"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
+import { CAFE_CONSTANTS, SEATTYPE_CONSTANTS, TIMESLOT_CONSTANTS } from "@/app/constants"
 
 export default function BookingSuccessPage() {
+  const searchParams = useSearchParams()
+  const cafeNameFromQuery = searchParams.get("cafe")
+  const selectedSeatType = searchParams.get("seat")
+  const selectedTime = searchParams.get("time")
+  const selectedDate = searchParams.get("date")
+  const selectedPartySize = searchParams.get("person")
+
   return (
     <div className="min-h-screen bg-background">
       <CustomerNavbar />
@@ -23,15 +33,15 @@ export default function BookingSuccessPage() {
               <div className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-accent mt-0.5" />
                 <div>
-                  <div className="font-medium text-card-foreground">The Coffee House</div>
-                  <div className="text-sm text-muted-foreground">123 Nguyen Hue, District 1, Ho Chi Minh City</div>
+                  <div className="font-medium text-card-foreground">{CAFE_CONSTANTS.find(cafe => cafe.id === Number(cafeNameFromQuery))?.name}</div>
+                  <div className="text-sm text-muted-foreground">{CAFE_CONSTANTS.find(cafe => cafe.id === Number(cafeNameFromQuery))?.location}</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Calendar className="h-5 w-5 text-accent mt-0.5" />
                 <div>
-                  <div className="font-medium text-card-foreground">Today, 2:00 PM</div>
-                  <div className="text-sm text-muted-foreground">Solo Seat • 1 person</div>
+                  <div className="font-medium text-card-foreground">{selectedDate}, {selectedTime}</div>
+                  <div className="text-sm text-muted-foreground">{SEATTYPE_CONSTANTS.find(seat => seat.id === selectedSeatType)?.name} • {selectedPartySize} person(s)</div>
                 </div>
               </div>
             </div>

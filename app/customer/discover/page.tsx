@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Search, MapPin, Star, Coffee, Users, Zap, Heart, Navigation, Filter, Clock, Map } from "lucide-react"
 import { useState, useEffect } from "react"
+import { CAFE_CONSTANTS } from "@/app/constants"
 import Link from "next/link"
 
 // Mock data for cafés with coordinates
@@ -120,7 +121,7 @@ export default function DiscoverPage() {
     setFavorites((prev) => (prev.includes(cafeId) ? prev.filter((id) => id !== cafeId) : [...prev, cafeId]))
   }
 
-  const filteredCafes = cafes.filter((cafe) => {
+  const filteredCafes = CAFE_CONSTANTS.filter((cafe) => {
     const matchesSearch =
       cafe.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       cafe.location.toLowerCase().includes(searchQuery.toLowerCase())

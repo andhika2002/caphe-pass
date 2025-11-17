@@ -384,7 +384,7 @@ export default function BookingPage() {
               </Button>
             ) : (
               <Button className="bg-accent text-accent-foreground hover:bg-accent/90" asChild>
-                <Link href="/booking/success">Confirm Booking</Link>
+                <Link href={`/customer/booking/success?cafe=${cafeNameFromQuery}&seat=${selectedSeatType}&time=${selectedTime}&date=${selectedDate}&person=${partySize}`}>Confirm Booking</Link>
               </Button>
             )}
           </div>
