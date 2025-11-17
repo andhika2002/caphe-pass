@@ -300,7 +300,7 @@ export default function RewardsPage() {
                 Book a table or pre-order to start earning points and unlock exclusive rewards.
               </p>
               <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90" asChild>
-                <Link href="/booking">Book Now</Link>
+                <Link href="/customer/discover">Book Now</Link>
               </Button>
             </Card>
           </div>
