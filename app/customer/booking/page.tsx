@@ -8,62 +8,11 @@ import { Calendar, Clock, Users, Coffee, Wifi, MapPin, Star, ChevronRight } from
 import { useState } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { CAFE_CONSTANTS } from "@/app/constants"
-
-const seatTypes = [
-  {
-    id: "solo",
-    name: "Solo Seat",
-    icon: Coffee,
-    description: "Perfect for focused work or quiet reading",
-    capacity: 1,
-    features: ["Power outlet", "Quiet zone", "Individual table"],
-  },
-  {
-    id: "group",
-    name: "Group Table",
-    icon: Users,
-    description: "Ideal for meetings or catching up with friends",
-    capacity: "2-6",
-    features: ["Spacious table", "Comfortable seating", "Group-friendly"],
-  },
-  {
-    id: "coworking",
-    name: "Co-working Corner",
-    icon: Wifi,
-    description: "Dedicated workspace with premium amenities",
-    capacity: "1-4",
-    features: ["High-speed Wi-Fi", "Power outlets", "Ergonomic chairs"],
-  },
-]
-
-const timeSlots = [
-  "08:00 AM",
-  "09:00 AM",
-  "10:00 AM",
-  "11:00 AM",
-  "12:00 PM",
-  "01:00 PM",
-  "02:00 PM",
-  "03:00 PM",
-  "04:00 PM",
-  "05:00 PM",
-  "06:00 PM",
-  "07:00 PM",
-]
-
-const mockCafe = {
-  id: 1,
-  name: "The Coffee House",
-  location: "123 Nguyen Hue, District 1, Ho Chi Minh City",
-  rating: 4.8,
-  reviews: 324,
-  image: "/modern-vietnamese-coffee-shop-interior.jpg",
-}
+import { CAFE_CONSTANTS, TIMESLOT_CONSTANTS, SEATTYPE_CONSTANTS } from "@/app/constants"
 
 export default function BookingPage() {
   const searchParams = useSearchParams()
-  const cafeNameFromQuery = searchParams.get("cafe") || mockCafe.name
+  const cafeNameFromQuery = searchParams.get("cafe")
 
   const [selectedSeatType, setSelectedSeatType] = useState<string | null>(null)
   const [selectedDate, setSelectedDate] = useState<string>("")
@@ -181,7 +130,7 @@ export default function BookingPage() {
               <p className="text-muted-foreground mb-6">Select the seating arrangement that fits your needs</p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                {seatTypes.map((type) => {
+                {SEATTYPE_CONSTANTS.map((type) => {
                   const Icon = type.icon
                   return (
                     <Card
@@ -279,7 +228,7 @@ export default function BookingPage() {
                     Select Time
                   </label>
                   <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
-                    {timeSlots.map((time) => (
+                    {TIMESLOT_CONSTANTS.map((time) => (
                       <button
                         key={time}
                         onClick={() => setSelectedTime(time)}
@@ -317,7 +266,7 @@ export default function BookingPage() {
                     <div>
                       <div className="text-sm text-muted-foreground mb-1">Seat Type</div>
                       <div className="font-semibold text-card-foreground">
-                        {seatTypes.find((t) => t.id === selectedSeatType)?.name}
+                        {SEATTYPE_CONSTANTS.find((t) => t.id === selectedSeatType)?.name}
                       </div>
                     </div>
                     <div>
