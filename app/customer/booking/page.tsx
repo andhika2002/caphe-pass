@@ -4,23 +4,49 @@ import { CustomerNavbar } from "@/components/customer-navbar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, Clock, Users, Coffee, Wifi, MapPin, Star, ChevronRight } from "lucide-react"
-import { useState } from "react"
+import { Calendar, Clock, Users, Coffee, Wifi, MapPin, Star, ChevronRight } from 'lucide-react'
+import { useState, useEffect } from "react"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams } from 'next/navigation'
 import { CAFE_CONSTANTS, TIMESLOT_CONSTANTS, SEATTYPE_CONSTANTS } from "@/app/constants"
 import { useRouter } from 'next/navigation'
 
 
 export default function BookingPage() {
   const searchParams = useSearchParams()
+  const router = useRouter()
+  
   const cafeNameFromQuery = searchParams.get("cafe")
-
+  
   const [selectedSeatType, setSelectedSeatType] = useState<string | null>(null)
   const [selectedDate, setSelectedDate] = useState<string>("")
   const [selectedTime, setSelectedTime] = useState<string>("")
   const [partySize, setPartySize] = useState<number>(1)
   const [step, setStep] = useState<number>(1)
+  const [preOrderItems, setPreOrderItems] = useState<any[]>([])
+
+  // Load state from URL on component mount
+  useEffect(() => {
+    const seatTypeParam = searchParams.get("seat")
+    const dateParam = searchParams.get("date")
+    const timeParam = searchParams.get("time")
+    const personParam = searchParams.get("person")
+    const stepParam = searchParams.get("step")
+    const preOrderParam = searchParams.get("preOrder")
+
+    if (seatTypeParam) setSelectedSeatType(seatTypeParam)
+    if (dateParam) setSelectedDate(dateParam)
+    if (timeParam) setSelectedTime(timeParam)
+    if (personParam) setPartySize(Number(personParam))
+    if (stepParam) setStep(Number(stepParam))
+    if (preOrderParam) {
+      try {
+        setPreOrderItems(JSON.parse(decodeURIComponent(preOrderParam)))
+      } catch (e) {
+        console.log("[v0] Error parsing preOrderItems:", e)
+      }
+    }
+  }, [searchParams])
 
   // Generate next 7 days
   const dates = Array.from({ length: 7 }, (_, i) => {
@@ -50,6 +76,29 @@ export default function BookingPage() {
     if (step > 1) {
       setStep(step - 1)
     }
+  }
+
+  const buildBookingUrl = (newStep?: number) => {
+    const params = new URLSearchParams()
+    params.set("cafe", cafeNameFromQuery || "")
+    params.set("seat", selectedSeatType || "")
+    params.set("date", selectedDate)
+    params.set("time", selectedTime)
+    params.set("person", partySize.toString())
+    params.set("step", (newStep || step).toString())
+    if (preOrderItems.length > 0) {
+      params.set("preOrder", encodeURIComponent(JSON.stringify(preOrderItems)))
+    }
+    return `/customer/booking?${params.toString()}`
+  }
+
+  const handleAddPreOrder = () => {
+    const params = new URLSearchParams()
+    params.set("cafe", cafeNameFromQuery || "")
+    params.set("date", selectedDate)
+    params.set("time", selectedTime)
+    params.set("return", buildBookingUrl(3))
+    router.push(`/customer/pre-order?${params.toString()}`)
   }
 
   return (
@@ -296,6 +345,25 @@ export default function BookingPage() {
                 </div>
               </Card>
 
+              {preOrderItems.length > 0 && (
+                <Card className="p-6 bg-green-500/5 border-green-500/20 mb-6">
+                  <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Coffee className="h-5 w-5 text-green-500" />
+                    Pre-Ordered Items
+                  </h4>
+                  <div className="space-y-2">
+                    {preOrderItems.map((item: any, idx: number) => (
+                      <div key={idx} className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">
+                          {item.quantity}x {item.name}
+                        </span>
+                        <span className="font-semibold text-foreground">{(item.price * item.quantity / 1000).toFixed(0)}k</span>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              )}
+
               <Card className="p-6 bg-accent/5 border-accent/20 mb-6">
                 <div className="flex items-start gap-3">
                   <Coffee className="h-5 w-5 text-accent mt-0.5" />
@@ -304,8 +372,8 @@ export default function BookingPage() {
                     <p className="text-sm text-muted-foreground mb-3">
                       Add drinks and food to your booking so they're ready when you arrive.
                     </p>
-                    <Button variant="outline" size="sm" asChild>
-                      <Link href="/customer/pre-order">Add Pre-Order</Link>
+                    <Button variant="outline" size="sm" onClick={handleAddPreOrder}>
+                      Add Pre-Order
                     </Button>
                   </div>
                 </div>
@@ -335,7 +403,7 @@ export default function BookingPage() {
               </Button>
             ) : (
               <Button className="bg-accent text-accent-foreground hover:bg-accent/90" asChild>
-                <Link href={`/customer/booking/success?cafe=${cafeNameFromQuery}&seat=${selectedSeatType}&time=${selectedTime}&date=${selectedDate}&person=${partySize}`}>Confirm Booking</Link>
+                <Link href={`/customer/booking/success?cafe=${cafeNameFromQuery}&seat=${selectedSeatType}&time=${selectedTime}&date=${selectedDate}&person=${partySize}${preOrderItems.length > 0 ? `&preOrder=${encodeURIComponent(JSON.stringify(preOrderItems))}` : ""}`}>Confirm Booking</Link>
               </Button>
             )}
           </div>

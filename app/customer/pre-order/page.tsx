@@ -82,9 +82,9 @@ export default function PreOrderPage() {
   const searchParams = useSearchParams()
   
   const cafeId = searchParams.get("cafe")
-  const returnPath = searchParams.get("return")
   const bookingDate = searchParams.get("date")
   const bookingTime = searchParams.get("time")
+  const returnUrl = searchParams.get("return")
 
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [cart, setCart] = useState<Record<number, number>>({})
@@ -120,15 +120,19 @@ export default function PreOrderPage() {
   const totalPrice = cartItems.reduce((sum, { item, quantity }) => sum + item.price * quantity, 0)
 
   const handleReviewOrder = () => {
-    // Navigate to review page with cart data
     const cartData = cartItems.map((item) => ({
       name: item.item.name,
       quantity: item.quantity,
       price: item.item.price,
     }))
-    router.push(
-      `/customer/pre-order/review?cafe=${cafeId}&date=${bookingDate}&time=${bookingTime}&cart=${encodeURIComponent(JSON.stringify(cartData))}&return=${returnPath}`
-    )
+    const reviewParams = new URLSearchParams()
+    reviewParams.set("cafe", cafeId || "")
+    reviewParams.set("date", bookingDate || "")
+    reviewParams.set("time", bookingTime || "")
+    reviewParams.set("cart", encodeURIComponent(JSON.stringify(cartData)))
+    if (returnUrl) reviewParams.set("return", returnUrl)
+    
+    router.push(`/customer/pre-order/review?${reviewParams.toString()}`)
   }
 
   return (

@@ -12,10 +12,10 @@ export default function ReviewOrderPage() {
   const searchParams = useSearchParams()
 
   const cafeId = searchParams.get("cafe")
-  const returnPath = searchParams.get("return")
   const bookingDate = searchParams.get("date")
   const bookingTime = searchParams.get("time")
   const cartParam = searchParams.get("cart")
+  const returnUrl = searchParams.get("return")
 
   const [promoCode, setPromoCode] = useState("")
   const [appliedPromo, setAppliedPromo] = useState<string | null>(null)
@@ -35,15 +35,17 @@ export default function ReviewOrderPage() {
   }
 
   const handleConfirmOrder = () => {
-    // Return to booking page with pre-order items
-    const preOrderData = cartItems.map((item: any) => ({
-      name: item.name,
-      quantity: item.quantity,
-      price: item.price,
-    }))
-    router.push(
-      `/customer/booking?cafe=${cafeId}&preOrder=${encodeURIComponent(JSON.stringify(preOrderData))}`
-    )
+    if (returnUrl) {
+      const preOrderData = cartItems.map((item: any) => ({
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+      }))
+      const separator = returnUrl.includes("?") ? "&" : "?"
+      router.push(
+        `${returnUrl}${separator}preOrder=${encodeURIComponent(JSON.stringify(preOrderData))}`
+      )
+    }
   }
 
   return (
