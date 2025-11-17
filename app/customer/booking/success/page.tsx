@@ -52,7 +52,7 @@ export default function BookingSuccessPage() {
               <Link href="/pre-order">Add Pre-Order</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href="/discover">Discover More Cafés</Link>
+              <Link href="/customer/discover">Discover More Cafés</Link>
             </Button>
           </div>
         </div>
