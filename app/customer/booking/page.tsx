@@ -8,6 +8,7 @@ import { Calendar, Clock, Users, Coffee, Wifi, MapPin, Star, ChevronRight } from
 import { useState } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { CAFE_CONSTANTS } from "@/app/constants"
 
 const seatTypes = [
   {
@@ -109,21 +110,21 @@ export default function BookingPage() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
             <img
-              src={mockCafe.image || "/placeholder.svg"}
-              alt={mockCafe.name}
+              src={CAFE_CONSTANTS.find(cafe => cafe.id === Number(cafeNameFromQuery))?.image || "/placeholder.svg"}
+              alt={CAFE_CONSTANTS.find(cafe => cafe.id === Number(cafeNameFromQuery))?.name || "Cafe Image"}
               className="w-full md:w-24 h-32 md:h-24 object-cover rounded-lg"
             />
             <div className="flex-1">
-              <h1 className="text-2xl md:text-3xl font-bold text-card-foreground mb-2">{cafeNameFromQuery}</h1>
+              <h1 className="text-2xl md:text-3xl font-bold text-card-foreground mb-2">{CAFE_CONSTANTS.find(cafe => cafe.id === Number(cafeNameFromQuery))?.name}</h1>
               <div className="flex flex-col md:flex-row gap-3 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
                   <MapPin className="h-4 w-4" />
-                  <span>{mockCafe.location}</span>
+                  <span>{CAFE_CONSTANTS.find(cafe => cafe.id === Number(cafeNameFromQuery))?.location}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                  <span className="font-semibold text-card-foreground">{mockCafe.rating}</span>
-                  <span>({mockCafe.reviews} reviews)</span>
+                  <span className="font-semibold text-card-foreground">{CAFE_CONSTANTS.find(cafe => cafe.id === Number(cafeNameFromQuery))?.rating}</span>
+                  <span>({CAFE_CONSTANTS.find(cafe => cafe.id === Number(cafeNameFromQuery))?.reviews} reviews)</span>
                 </div>
               </div>
             </div>
@@ -307,8 +308,8 @@ export default function BookingPage() {
                 <div className="space-y-4">
                   <div className="flex items-start justify-between pb-4 border-b border-border">
                     <div>
-                      <h3 className="font-semibold text-card-foreground mb-1">{mockCafe.name}</h3>
-                      <p className="text-sm text-muted-foreground">{mockCafe.location}</p>
+                      <h3 className="font-semibold text-card-foreground mb-1">{CAFE_CONSTANTS.find(cafe => cafe.id === Number(cafeNameFromQuery))?.name}</h3>
+                      <p className="text-sm text-muted-foreground">{CAFE_CONSTANTS.find(cafe => cafe.id === Number(cafeNameFromQuery))?.location}</p>
                     </div>
                   </div>
 

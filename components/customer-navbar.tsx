@@ -31,13 +31,13 @@ export function CustomerNavbar() {
               <MapPin className="h-4 w-4" />
               Discover
             </Link>
-            <Link
+            {/* <Link
               href="/customer/booking"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
             >
               <Calendar className="h-4 w-4" />
               Book Now
-            </Link>
+            </Link> */}
             <Link
               href="/customer/pre-order"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"

@@ -361,12 +361,16 @@ export default function DiscoverPage() {
                   </div>
 
                   <div className="mt-4 flex gap-2">
-                    <Button className="flex-1 bg-accent text-accent-foreground hover:bg-accent/90" asChild>
+                    {cafe.openNow ? (
+                      <Button className="flex-1 bg-accent text-accent-foreground hover:bg-accent/90">
                       <Link href={`/customer/booking?cafe=${cafe.id}`}>Book Now</Link>
                     </Button>
-                    <Button variant="outline" asChild>
-                      <Link href={`/customer/cafe/${cafe.id}`}>Details</Link>
-                    </Button>
+                    ):
+                    (
+                      <Button disabled className="flex-1 bg-accent text-accent-foreground opacity-50">
+                        Book Now
+                      </Button>
+                    )}
                   </div>
                 </div>
               </Card>
