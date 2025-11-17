@@ -345,13 +345,13 @@ export default function BookingPage() {
                 </div>
               </Card>
 
-              {preOrderItems.length > 0 && (
+              {preOrderItems.length > 0 ? (
                 <Card className="p-6 bg-green-500/5 border-green-500/20 mb-6">
                   <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
                     <Coffee className="h-5 w-5 text-green-500" />
                     Pre-Ordered Items
                   </h4>
-                  <div className="space-y-2">
+                  <div className="space-y-2 mb-4">
                     {preOrderItems.map((item: any, idx: number) => (
                       <div key={idx} className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">
@@ -361,23 +361,26 @@ export default function BookingPage() {
                       </div>
                     ))}
                   </div>
+                  <Button variant="outline" size="sm" onClick={handleAddPreOrder} className="w-full">
+                    Edit Pre-Order
+                  </Button>
+                </Card>
+              ) : (
+                <Card className="p-6 bg-accent/5 border-accent/20 mb-6">
+                  <div className="flex items-start gap-3">
+                    <Coffee className="h-5 w-5 text-accent mt-0.5" />
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-1">Want to pre-order?</h4>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        Add drinks and food to your booking so they're ready when you arrive.
+                      </p>
+                      <Button variant="outline" size="sm" onClick={handleAddPreOrder}>
+                        Add Pre-Order
+                      </Button>
+                    </div>
+                  </div>
                 </Card>
               )}
-
-              <Card className="p-6 bg-accent/5 border-accent/20 mb-6">
-                <div className="flex items-start gap-3">
-                  <Coffee className="h-5 w-5 text-accent mt-0.5" />
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">Want to pre-order?</h4>
-                    <p className="text-sm text-muted-foreground mb-3">
-                      Add drinks and food to your booking so they're ready when you arrive.
-                    </p>
-                    <Button variant="outline" size="sm" onClick={handleAddPreOrder}>
-                      Add Pre-Order
-                    </Button>
-                  </div>
-                </div>
-              </Card>
 
               <div className="bg-muted/30 rounded-lg p-4 mb-6">
                 <h4 className="font-semibold text-foreground mb-2">Cancellation Policy</h4>
