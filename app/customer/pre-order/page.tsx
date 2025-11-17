@@ -4,9 +4,10 @@ import { CustomerNavbar } from "@/components/customer-navbar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Plus, Minus, ShoppingCart, Clock, Check } from "lucide-react"
+import { Plus, Minus, ShoppingCart, Clock, Check, ArrowLeft } from 'lucide-react'
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter, useSearchParams } from 'next/navigation'
 
 interface MenuItem {
   id: number
@@ -77,6 +78,14 @@ const menuItems: MenuItem[] = [
 const categories = ["All", "Coffee", "Tea", "Food"]
 
 export default function PreOrderPage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  
+  const cafeId = searchParams.get("cafe")
+  const returnPath = searchParams.get("return")
+  const bookingDate = searchParams.get("date")
+  const bookingTime = searchParams.get("time")
+
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [cart, setCart] = useState<Record<number, number>>({})
 
@@ -110,14 +119,35 @@ export default function PreOrderPage() {
   const totalItems = Object.values(cart).reduce((sum, qty) => sum + qty, 0)
   const totalPrice = cartItems.reduce((sum, { item, quantity }) => sum + item.price * quantity, 0)
 
+  const handleReviewOrder = () => {
+    // Navigate to review page with cart data
+    const cartData = cartItems.map((item) => ({
+      name: item.item.name,
+      quantity: item.quantity,
+      price: item.item.price,
+    }))
+    router.push(
+      `/customer/pre-order/review?cafe=${cafeId}&date=${bookingDate}&time=${bookingTime}&cart=${encodeURIComponent(JSON.stringify(cartData))}&return=${returnPath}`
+    )
+  }
+
   return (
     <div className="min-h-screen bg-background pb-24">
       <CustomerNavbar />
 
-      {/* Header */}
+      {/* Header with Back Button */}
       <section className="border-b border-border/40 bg-card">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex items-start justify-between">
+        <div className="container mx-auto px-4 py-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => router.back()}
+            className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back
+          </Button>
+          <div className="flex items-start justify-between mt-4">
             <div>
               <h1 className="text-3xl md:text-4xl font-bold text-card-foreground mb-2">Pre-Order Menu</h1>
               <p className="text-muted-foreground">Order ahead and skip the wait</p>
@@ -222,8 +252,8 @@ export default function PreOrderPage() {
                   <div className="text-sm text-muted-foreground">{(totalPrice / 1000).toFixed(0)}k VND</div>
                 </div>
               </div>
-              <Button className="bg-accent text-accent-foreground hover:bg-accent/90" asChild>
-                <Link href="/pre-order/checkout">Review Order</Link>
+              <Button className="bg-accent text-accent-foreground hover:bg-accent/90" onClick={handleReviewOrder}>
+                Review Order
               </Button>
             </div>
           </div>

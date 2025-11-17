@@ -9,6 +9,8 @@ import { useState } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { CAFE_CONSTANTS, TIMESLOT_CONSTANTS, SEATTYPE_CONSTANTS } from "@/app/constants"
+import { useRouter } from 'next/navigation'
+
 
 export default function BookingPage() {
   const searchParams = useSearchParams()
@@ -303,7 +305,7 @@ export default function BookingPage() {
                       Add drinks and food to your booking so they're ready when you arrive.
                     </p>
                     <Button variant="outline" size="sm" asChild>
-                      <Link href="/pre-order">Add Pre-Order</Link>
+                      <Link href="/customer/pre-order">Add Pre-Order</Link>
                     </Button>
                   </div>
                 </div>
