@@ -52,11 +52,11 @@ export default function CustomerHomePage() {
           </Card>
 
           <Card className="p-6 bg-card border-border hover:border-accent/50 transition-all hover:shadow-lg hover:shadow-accent/10">
-            <Link href="/customer/pre-order" className="block">
+            <div className="block">
               <Coffee className="h-10 w-10 text-accent mb-4" />
               <h3 className="text-lg font-semibold text-card-foreground mb-2">Pre-Order</h3>
               <p className="text-sm text-muted-foreground">Order ahead and skip the queue at your café</p>
-            </Link>
+            </div>
           </Card>
 
           <Card className="p-6 bg-card border-border hover:border-accent/50 transition-all hover:shadow-lg hover:shadow-accent/10">

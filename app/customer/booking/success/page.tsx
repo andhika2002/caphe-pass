@@ -14,8 +14,8 @@ export default function BookingSuccessPage() {
   const selectedTime = searchParams.get("time")
   const selectedDate = searchParams.get("date")
   const selectedPartySize = searchParams.get("person")
-  const preOrderedItemsParam = searchParams.get("preOrderedItems")
-  const preOrderedItems = preOrderedItemsParam ? JSON.parse(decodeURIComponent(preOrderedItemsParam)) : []
+  const preOrderParam = searchParams.get("preOrder")
+  const preOrderedItems = preOrderParam ? JSON.parse(decodeURIComponent(preOrderParam)) : []
 
   return (
     <div className="min-h-screen bg-background">
@@ -56,7 +56,7 @@ export default function BookingSuccessPage() {
                 <h3 className="font-semibold text-card-foreground">Pre-Ordered Items</h3>
               </div>
               <div className="space-y-2">
-                {preOrderedItems.map((item) => (
+                {preOrderedItems.map((item: any) => (
                   <div key={item.id} className="flex justify-between items-center py-2 border-b border-border/40 last:border-0">
                     <div>
                       <div className="font-medium text-card-foreground">{item.name}</div>

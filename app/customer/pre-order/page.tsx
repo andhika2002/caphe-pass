@@ -85,9 +85,26 @@ export default function PreOrderPage() {
   const bookingDate = searchParams.get("date")
   const bookingTime = searchParams.get("time")
   const returnUrl = searchParams.get("return")
+  const existingPreOrderParam = searchParams.get("preOrder")
 
   const [selectedCategory, setSelectedCategory] = useState("All")
-  const [cart, setCart] = useState<Record<number, number>>({})
+  const [cart, setCart] = useState<Record<number, number>>(() => {
+    if (!existingPreOrderParam) return {}
+    try {
+      const existingItems = JSON.parse(decodeURIComponent(existingPreOrderParam))
+      const cartObj: Record<number, number> = {}
+      existingItems.forEach((item: any) => {
+        const menuItem = menuItems.find(m => m.name === item.name)
+        if (menuItem) {
+          cartObj[menuItem.id] = item.quantity
+        }
+      })
+      return cartObj
+    } catch (e) {
+      console.log("[v0] Error parsing existing pre-order:", e)
+      return {}
+    }
+  })
 
   const filteredItems =
     selectedCategory === "All" ? menuItems : menuItems.filter((item) => item.category === selectedCategory)

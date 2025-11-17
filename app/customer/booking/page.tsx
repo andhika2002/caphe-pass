@@ -97,6 +97,9 @@ export default function BookingPage() {
     params.set("cafe", cafeNameFromQuery || "")
     params.set("date", selectedDate)
     params.set("time", selectedTime)
+    if (preOrderItems.length > 0) {
+      params.set("preOrder", encodeURIComponent(JSON.stringify(preOrderItems)))
+    }
     params.set("return", buildBookingUrl(3))
     router.push(`/customer/pre-order?${params.toString()}`)
   }
