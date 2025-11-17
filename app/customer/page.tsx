@@ -49,11 +49,11 @@ export default function CustomerHomePage() {
           </Card>
 
           <Card className="p-6 bg-card border-border hover:border-accent/50 transition-all hover:shadow-lg hover:shadow-accent/10">
-            <Link href="/customer/booking" className="block">
+            <div className="block">
               <Calendar className="h-10 w-10 text-accent mb-4" />
               <h3 className="text-lg font-semibold text-card-foreground mb-2">Book a Seat</h3>
               <p className="text-sm text-muted-foreground">Reserve solo, group, or co-working spaces instantly</p>
-            </Link>
+            </div>
           </Card>
 
           <Card className="p-6 bg-card border-border hover:border-accent/50 transition-all hover:shadow-lg hover:shadow-accent/10">
